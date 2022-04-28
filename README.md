@@ -31,7 +31,7 @@ Then commit the changes to `go.mod` and `go.sum`.
 ## Using the provider
 
 
-The provide takes two arguments, `url` and `token`. For the data sources and resources supported, take a look at the [internal/provider](internal/provider) folder. In the next example, we capture the data of all manufacturers. 
+The provide takes two arguments, `url` and `token`. For the data sources and resources supported, take a look at the [internal/provider](internal/provider) folder. In the next example, we capture the data of all manufacturers and create a new manufacturer "Vendor I".
 
 
 ```hcl

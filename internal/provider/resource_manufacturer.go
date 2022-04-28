@@ -262,5 +262,22 @@ func resourceManufacturerUpdate(ctx context.Context, d *schema.ResourceData, met
 func resourceManufacturerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
+	c := meta.(*apiClient).Client
+	s := meta.(*apiClient).Server
+
+	id := d.Get("id").(string)
+	name := d.Get("name").(string)
+
+	_, err := c.DcimManufacturersDestroy(
+		ctx,
+		types.UUID(id))
+	if err != nil {
+		return diag.Errorf("failed to delete manufacturer %s on %s: %s", name, s, err.Error())
+	}
+
+	// d.SetId("") is automatically called assuming delete returns no errors, but
+	// it is added here for explicitness.
+	d.SetId("")
+
 	return diags
 }
