@@ -48,6 +48,7 @@ func resourceManufacturer() *schema.Resource {
 				Description: "Manufacturer's display name.",
 				Type:        schema.TypeString,
 				Optional:    true,
+				Computed:    true,
 			},
 			"id": {
 				Description: "Manufacturer's UUID.",
@@ -78,19 +79,19 @@ func resourceManufacturer() *schema.Resource {
 				Description: "Manufacturer's slug.",
 				Type:        schema.TypeString,
 				Optional:    true,
+				Computed:    true,
 			},
 			"url": {
 				Description: "Manufacturer's URL.",
 				Type:        schema.TypeString,
 				Optional:    true,
+				Computed:    true,
 			},
 		},
 	}
 }
 
 func resourceManufacturerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-
 	c := meta.(*apiClient).Client
 	s := meta.(*apiClient).Server
 
@@ -139,11 +140,9 @@ func resourceManufacturerCreate(ctx context.Context, d *schema.ResourceData, met
 		}
 		id := gjson.Get(string(rsp.Body), "results.0.id")
 
-		d.Set("id", id.String())
 		d.SetId(id.String())
-		resourceManufacturerRead(ctx, d, meta)
 
-		return diags
+		return resourceManufacturerRead(ctx, d, meta)
 	}
 
 	tflog.Trace(ctx, "manufacturer created", map[string]interface{}{
@@ -153,11 +152,9 @@ func resourceManufacturerCreate(ctx context.Context, d *schema.ResourceData, met
 
 	id := gjson.Get(data, "id")
 
-	//d.Set("id", id.String())
 	d.SetId(id.String())
-	resourceManufacturerRead(ctx, d, meta)
 
-	return diags
+	return resourceManufacturerRead(ctx, d, meta)
 }
 
 func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -192,12 +189,9 @@ func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("name", item["name"].(string))
 	d.Set("created", item["created"].(string))
 	d.Set("description", item["description"].(string))
-	// TODO: Fix issue with display going away
 	d.Set("display", item["display"].(string))
 	d.Set("id", item["id"].(string))
-	// TODO: Fix issue with slug going away
 	d.Set("slug", item["slug"].(string))
-	// TODO: Fix issue with url going away
 	d.Set("url", item["url"].(string))
 	d.Set("last_updated", item["last_updated"].(string))
 
@@ -227,28 +221,42 @@ func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta 
 }
 
 func resourceManufacturerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
+	c := meta.(*apiClient).Client
+	s := meta.(*apiClient).Server
 
-// DcimManufacturersPartialUpdateWithBodyWithResponse request with arbitrary body returning *DcimManufacturersPartialUpdateResponse
-// func (c *ClientWithResponses) DcimManufacturersPartialUpdateWithBodyWithResponse(ctx context.Context, id openapi_types.UUID, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*DcimManufacturersPartialUpdateResponse, error) {
-// 	rsp, err := c.DcimManufacturersPartialUpdateWithBody(ctx, id, contentType, body, reqEditors...)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return ParseDcimManufacturersPartialUpdateResponse(rsp)
-// }
+	name := d.Get("name").(string)
+	id := d.Get("id").(string)
 
-// func (c *ClientWithResponses) DcimManufacturersPartialUpdateWithResponse(ctx context.Context, id openapi_types.UUID, body DcimManufacturersPartialUpdateJSONRequestBody, reqEditors ...RequestEditorFn) (*DcimManufacturersPartialUpdateResponse, error) {
-// 	rsp, err := c.DcimManufacturersPartialUpdate(ctx, id, body, reqEditors...)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return ParseDcimManufacturersPartialUpdateResponse(rsp)
-// }
+	var m nb.PatchedManufacturer
 
+	if d.HasChange("name") {
+		m.Name = &name
+	}
 
+	desc := d.Get("description").(string)
+	if d.HasChange("description") {
+		m.Description = &desc
+	}
 
-	return diags
+	slug := d.Get("slug").(string)
+	if d.HasChange("slug") {
+		m.Description = &slug
+	}
+
+	_, err := c.DcimManufacturersPartialUpdateWithResponse(
+		ctx,
+		types.UUID(id),
+		nb.DcimManufacturersPartialUpdateJSONRequestBody(m))
+	if err != nil {
+		return diag.Errorf("failed to update manufacturer %s on %s: %s", name, s, err.Error())
+	}
+
+	tflog.Trace(ctx, "manufacturer updated", map[string]interface{}{
+		"name": name,
+		"data": []string{desc, slug},
+	})
+
+	return resourceManufacturerRead(ctx, d, meta)
 }
 
 func resourceManufacturerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {

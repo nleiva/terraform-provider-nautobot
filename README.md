@@ -50,6 +50,11 @@ provider "nautobot" {
 }
 
 data "nautobot_manufacturers" "all" {}
+
+resource "nautobot_manufacturer" "new" {
+  description = "Created with Terraform"
+  name    = "Vendor I"
+}
 ```
 
 ## Developing the Provider
