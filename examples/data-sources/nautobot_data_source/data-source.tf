@@ -1,0 +1,1 @@
+data "nautobot_manufacturers" "all" {}
