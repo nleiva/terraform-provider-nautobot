@@ -29,14 +29,14 @@ func resourceManufacturer() *schema.Resource {
 				Type:        schema.TypeString,
 				Computed:    true,
 			},
-			"custom_fields": {
-				Description: "Manufacturer custom fields.",
-				Type:        schema.TypeMap,
-				Optional:    true,
-			},
 			"description": {
 				Description: "Manufacturer's description.",
 				Type:        schema.TypeString,
+				Optional:    true,
+			},
+			"custom_fields": {
+				Description: "Manufacturer custom fields.",
+				Type:        schema.TypeMap,
 				Optional:    true,
 			},
 			"devicetype_count": {

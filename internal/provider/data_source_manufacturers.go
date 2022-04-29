@@ -31,14 +31,14 @@ func dataSourceManufacturers() *schema.Resource {
 							Type:        schema.TypeString,
 							Computed:    true,
 						},
-						"custom_fields": {
-							Description: "Manufacturer custom fields.",
-							Type:        schema.TypeMap,
-							Optional:    true,
-						},
 						"description": {
 							Description: "Manufacturer's description.",
 							Type:        schema.TypeString,
+							Optional:    true,
+						},
+						"custom_fields": {
+							Description: "Manufacturer custom fields.",
+							Type:        schema.TypeMap,
 							Optional:    true,
 						},
 						"devicetype_count": {
@@ -50,6 +50,7 @@ func dataSourceManufacturers() *schema.Resource {
 							Description: "Manufacturer's display name.",
 							Type:        schema.TypeString,
 							Optional:    true,
+							Computed:    true,
 						},
 						"id": {
 							Description: "Manufacturer's UUID.",
@@ -80,11 +81,13 @@ func dataSourceManufacturers() *schema.Resource {
 							Description: "Manufacturer's slug.",
 							Type:        schema.TypeString,
 							Optional:    true,
+							Computed:    true,
 						},
 						"url": {
 							Description: "Manufacturer's URL.",
 							Type:        schema.TypeString,
 							Optional:    true,
+							Computed:    true,
 						},
 					},
 				},

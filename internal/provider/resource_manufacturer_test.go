@@ -18,15 +18,21 @@ func TestAccResourceManufacturer(t *testing.T) {
 				Config: testAccResourceManufacturer,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestMatchResourceAttr(
-						"nautobot_manufacturer.foo", "sample_attribute", regexp.MustCompile("^ba")),
+						"nautobot_manufacturer.test", "slug", regexp.MustCompile("^juniper$")),
 				),
 			},
 		},
 	})
+
 }
 
 const testAccResourceManufacturer = `
-resource "nautobot_manufacturer" "foo" {
-  sample_attribute = "bar"
+provider "nautobot" {
+	url = "https://demo.nautobot.com/api/"
+	token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+
+resource "nautobot_manufacturer" "test" {
+	name = "Juniper"
 }
 `
