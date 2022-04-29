@@ -24,5 +24,5 @@ provider "nautobot" {
 
 ### Required
 
-- `token` (String, Sensitive) Customer/user-specific authorization token for the Shoreline API server.
-- `url` (String) URL for Nautobot API server. It should be of the form https:///server.example.org/api/.
+- `token` (String, Sensitive) Customer/user-specific authorization API token for Nautobot.
+- `url` (String) URL for the Nautobot server. It should be of the form https:///server.example.org/api/.

@@ -35,14 +35,14 @@ func New(version string) func() *schema.Provider {
 					Required:     true,
 					DefaultFunc:  schema.EnvDefaultFunc("NAUTOBOT_URL", nil),
 					ValidateFunc: validation.IsURLWithHTTPorHTTPS,
-					Description:  "URL for Nautobot API server. It should be of the form https:///server.example.org/api/.",
+					Description:  "URL for the Nautobot server. It should be of the form https:///server.example.org/api/.",
 				},
 				"token": {
 					Type:        schema.TypeString,
 					Required:    true,
 					Sensitive:   true,
 					DefaultFunc: schema.EnvDefaultFunc("NAUTOBOT_TOKEN", nil),
-					Description: "Customer/user-specific authorization token for the Shoreline API server.",
+					Description: "Customer/user-specific authorization API token for Nautobot.",
 				},
 			},
 			DataSourcesMap: map[string]*schema.Resource{
