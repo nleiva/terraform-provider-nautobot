@@ -176,7 +176,18 @@ func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta 
 		return diag.Errorf("failed to get manufacturer %s from %s: %s", name, s, err.Error())
 	}
 
+	// If the Manufacturer is in the state file, but it is not in the Nautobot platform
+	// the response we get from DcimManufacturersListWithResponse is: {"count":0,"next":null,"previous":null,"results":[]}
+	// When you create something in Terraform but delete it manually, Terraform should gracefully handle it.
+	// We should set the ID to an empty string so Terraform "destroys" the resource in state.
+	count := gjson.Get(string(rsp.Body), "count")
+	if count.String() == "0" {
+		d.SetId("")
+		return diags
+	}
+
 	results := gjson.Get(string(rsp.Body), "results.0")
+
 	resultsReader := strings.NewReader(results.String())
 
 	item := make(map[string]interface{})

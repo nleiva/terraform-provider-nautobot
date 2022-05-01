@@ -35,7 +35,7 @@ func New(version string) func() *schema.Provider {
 					Required:     true,
 					DefaultFunc:  schema.EnvDefaultFunc("NAUTOBOT_URL", nil),
 					ValidateFunc: validation.IsURLWithHTTPorHTTPS,
-					Description:  "URL for the Nautobot server. It should be of the form https:///server.example.org/api/.",
+					Description:  "URL for the Nautobot API platform. It should be of the form https:///server.example.org/api/.",
 				},
 				"token": {
 					Type:        schema.TypeString,

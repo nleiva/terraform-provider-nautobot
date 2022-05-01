@@ -25,4 +25,4 @@ provider "nautobot" {
 ### Required
 
 - `token` (String, Sensitive) Customer/user-specific authorization API token for Nautobot.
-- `url` (String) URL for the Nautobot server. It should be of the form https:///server.example.org/api/.
+- `url` (String) URL for the Nautobot API platform. It should be of the form https:///server.example.org/api/.
