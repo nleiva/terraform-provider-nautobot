@@ -40,8 +40,8 @@ The provide takes two arguments, `url` and `token`. For the data sources and res
 terraform {
   required_providers {
     nautobot = {
-      version = "0.1"
-      source  = "github.com/nleiva/nautobot"
+      version = "0.2.4"
+      source  = "nleiva/nautobot"
     }
   }
 }
