@@ -158,20 +158,17 @@ func resourceManufacturerCreate(ctx context.Context, d *schema.ResourceData, met
 }
 
 func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-
 	c := meta.(*apiClient).Client
-	s := meta.(*apiClient).Server
-
-	name := d.Get("name").(string)
 	id := d.Get("id").(string)
-
 	rsp, err := c.DcimManufacturersListWithResponse(
 		ctx,
 		&nb.DcimManufacturersListParams{
 			IdIe: &[]types.UUID{types.UUID(id)},
 		})
 
+	var diags diag.Diagnostics
+	name := d.Get("name").(string)
+	s := meta.(*apiClient).Server
 	if err != nil {
 		return diag.Errorf("failed to get manufacturer %s from %s: %s", name, s, err.Error())
 	}
