@@ -31,18 +31,24 @@ func New(version string) func() *schema.Provider {
 		p := &schema.Provider{
 			Schema: map[string]*schema.Schema{
 				"url": {
-					Type:         schema.TypeString,
-					Required:     true,
-					DefaultFunc:  schema.EnvDefaultFunc("NAUTOBOT_URL", nil),
+					Type:     schema.TypeString,
+					Required: true,
+					DefaultFunc: schema.EnvDefaultFunc(
+						"NAUTOBOT_URL",
+						nil,
+					),
 					ValidateFunc: validation.IsURLWithHTTPorHTTPS,
-					Description:  "URL for the Nautobot API platform. It should be of the form https:///server.example.org/api/.",
+					Description:  "Nautobot API URL",
 				},
 				"token": {
-					Type:        schema.TypeString,
-					Required:    true,
-					Sensitive:   true,
-					DefaultFunc: schema.EnvDefaultFunc("NAUTOBOT_TOKEN", nil),
-					Description: "Customer/user-specific authorization API token for Nautobot.",
+					Type:      schema.TypeString,
+					Required:  true,
+					Sensitive: true,
+					DefaultFunc: schema.EnvDefaultFunc(
+						"NAUTOBOT_TOKEN",
+						nil,
+					),
+					Description: "Admin API token",
 				},
 			},
 			DataSourcesMap: map[string]*schema.Resource{
@@ -67,7 +73,10 @@ type apiClient struct {
 	Server string
 }
 
-func configure(version string, p *schema.Provider) func(context.Context, *schema.ResourceData) (interface{}, diag.Diagnostics) {
+func configure(
+	version string,
+	p *schema.Provider,
+) func(context.Context, *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	return func(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 		serverURL := d.Get("url").(string)
 		_, hasToken := d.GetOk("token")
@@ -80,7 +89,9 @@ func configure(version string, p *schema.Provider) func(context.Context, *schema
 			return &apiClient{Server: serverURL}, diags
 		}
 
-		token, _ := NewSecurityProviderNautobotToken(d.Get("token").(string))
+		token, _ := NewSecurityProviderNautobotToken(
+			d.Get("token").(string),
+		)
 
 		c, err := nb.NewClientWithResponses(
 			serverURL,
