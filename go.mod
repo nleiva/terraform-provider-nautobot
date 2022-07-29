@@ -6,7 +6,7 @@ require (
 	github.com/deepmap/oapi-codegen v1.10.1
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
 	github.com/hashicorp/terraform-plugin-log v0.7.0
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.19.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.20.0
 	github.com/nautobot/go-nautobot v0.0.0-00010101000000-000000000000
 	github.com/tidwall/gjson v1.14.1
 )
