@@ -1,6 +1,6 @@
 module github.com/nleiva/terraform-provider-nautobot
 
-go 1.17
+go 1.20
 
 require (
 	github.com/deepmap/oapi-codegen v1.12.4
