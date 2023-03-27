@@ -24,6 +24,7 @@ This object manages a manufacturer in Nautobot
 - `custom_fields` (Map of String) Manufacturer custom fields.
 - `description` (String) Manufacturer's description.
 - `display` (String) Manufacturer's display name.
+- `notes_url` (String) Notes for manufacturer.
 - `slug` (String) Manufacturer's slug.
 - `url` (String) Manufacturer's URL.
 
