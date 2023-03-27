@@ -3,7 +3,7 @@ HOSTNAME=github.com
 NAMESPACE=nleiva
 NAME=nautobot
 BINARY=terraform-provider-${NAME}
-VERSION=0.2.4
+VERSION=0.3.0
 OS_ARCH=$(shell go env GOOS)_$(shell go env GOARCH)
 
 
@@ -27,8 +27,8 @@ release:
 	GOOS=windows GOARCH=amd64 go build -o ./bin/${BINARY}_${VERSION}_windows_amd64
 
 install: build
-	mkdir -p ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
-	mv ${BINARY} ~/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
+	mkdir -p $(HOME)/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
+	mv ${BINARY} $(HOME)/.terraform.d/plugins/${HOSTNAME}/${NAMESPACE}/${NAME}/${VERSION}/${OS_ARCH}
 
 get-api:
 	cd client; wget https://demo.nautobot.com/api/swagger.yaml\?api_version\=1.3 -O swagger.yaml
@@ -46,4 +46,16 @@ gpg-key:
 	gpg --armor --export-secret-key $(EMAIL) -w0 | xclip -selection clipboard -i
 
 testacc: 
-	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m   
+	TF_ACC=1 go test $(TEST) -v $(TESTARGS) -timeout 120m
+
+local: install
+	sed -i "s-/home/nleiva-${HOME}-" test/.terraform/plugin_path
+	sed -i 's-version =.*-version = "${VERSION}"-' test/main.tf
+	cd test; terraform init -upgrade && \
+	terraform apply -auto-approve; cd ..
+	
+tag: local
+	git add .
+	git commit -m "Bump to version ${VERSION}"
+	git tag -a -m "Bump to version ${VERSION}" v${VERSION}
+	git push --follow-tag
