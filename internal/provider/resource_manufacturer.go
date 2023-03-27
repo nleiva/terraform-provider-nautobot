@@ -74,6 +74,7 @@ func resourceManufacturer() *schema.Resource {
 				Description: "Notes for manufacturer.",
 				Type:        schema.TypeString,
 				Optional:    true,
+				Computed:    true,
 			},
 			"platform_count": {
 				Description: "Manufacturer's platform count.",
