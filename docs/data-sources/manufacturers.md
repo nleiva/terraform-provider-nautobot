@@ -34,6 +34,7 @@ Read-Only:
 - `inventoryitem_count` (Number)
 - `last_updated` (String)
 - `name` (String)
+- `notes_url` (String)
 - `platform_count` (Number)
 - `slug` (String)
 - `url` (String)

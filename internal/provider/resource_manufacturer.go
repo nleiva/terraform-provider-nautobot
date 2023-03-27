@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/deepmap/oapi-codegen/pkg/types"
+	"github.com/google/uuid"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -169,7 +170,7 @@ func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta 
 	rsp, err := c.DcimManufacturersListWithResponse(
 		ctx,
 		&nb.DcimManufacturersListParams{
-			IdIe: &[]types.UUID{types.UUID(id)},
+			IdIe: &[]types.UUID{uuid.MustParse(id)},
 		})
 
 	var diags diag.Diagnostics
@@ -260,7 +261,7 @@ func resourceManufacturerUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	_, err := c.DcimManufacturersPartialUpdateWithResponse(
 		ctx,
-		types.UUID(id),
+		uuid.MustParse(id),
 		nb.DcimManufacturersPartialUpdateJSONRequestBody(m))
 	if err != nil {
 		return diag.Errorf("failed to update manufacturer %s on %s: %s", name, s, err.Error())
@@ -285,7 +286,7 @@ func resourceManufacturerDelete(ctx context.Context, d *schema.ResourceData, met
 
 	_, err := c.DcimManufacturersDestroy(
 		ctx,
-		types.UUID(id))
+		uuid.MustParse(id))
 	if err != nil {
 		return diag.Errorf("failed to delete manufacturer %s on %s: %s", name, s, err.Error())
 	}
