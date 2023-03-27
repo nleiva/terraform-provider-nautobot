@@ -72,6 +72,11 @@ func dataSourceManufacturers() *schema.Resource {
 							Type:        schema.TypeString,
 							Required:    true,
 						},
+						"notes_url": {
+							Description: "Notes for manufacturer.",
+							Type:        schema.TypeString,
+							Optional:    true,
+						},
 						"platform_count": {
 							Description: "Manufacturer's platform count.",
 							Type:        schema.TypeInt,
