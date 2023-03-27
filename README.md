@@ -1,6 +1,6 @@
 # Terraform Provider Nautobot 
 
-Nautobot provider created for educational purposes. You can fork it for long term development :-)
+Nautobot provider created for educational purposes. You can fork it for long-term development :-)
 
 ## Requirements
 
@@ -19,7 +19,7 @@ $ make install
 ## Adding Dependencies
 
 This provider uses [Go modules](https://github.com/golang/go/wiki/Modules).
-Please see the Go documentation for the most up to date information about using Go modules.
+Please see the Go documentation for the most up-to-date information about using Go modules.
 
 To add a new dependency `github.com/author/dependency` to your Terraform provider:
 
@@ -40,7 +40,7 @@ The provide takes two arguments, `url` and `token`. For the data sources and res
 terraform {
   required_providers {
     nautobot = {
-      version = "0.2.4"
+      version = "0.3.1"
       source  = "nleiva/nautobot"
     }
   }
@@ -63,11 +63,12 @@ resource "nautobot_manufacturer" "new" {
 
 If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (see [Requirements](#requirements) above).
 
-To compile the provider, run `make install`.
+There are a few make tagets you can leverage you can leverage:
 
-To generate or update documentation, run `go generate ./...`.
-
-In order to run the full suite of Acceptance tests, run `make testacc`.
+- `make install`: To compile the provider.
+- `go generate ./...`: To generate or update documentation.
+- `make local`: Test local version of the provider.
+- `make testacc`: To run the full suite of Acceptance tests.
 
 *Note:* Acceptance tests create real resources, and often cost money to run.
 

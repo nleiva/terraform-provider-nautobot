@@ -3,7 +3,7 @@ HOSTNAME=github.com
 NAMESPACE=nleiva
 NAME=nautobot
 BINARY=terraform-provider-${NAME}
-VERSION=0.3.0
+VERSION=0.3.1
 OS_ARCH=$(shell go env GOOS)_$(shell go env GOARCH)
 
 
