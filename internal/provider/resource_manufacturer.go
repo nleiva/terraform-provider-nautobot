@@ -70,6 +70,12 @@ func resourceManufacturer() *schema.Resource {
 				Type:        schema.TypeString,
 				Required:    true,
 			},
+			"notes_url": {
+				Description: "Notes for manufacturer.",
+				Type:        schema.TypeString,
+				Optional:    true,
+				Computed:    true,
+			},
 			"platform_count": {
 				Description: "Manufacturer's platform count.",
 				Type:        schema.TypeInt,
@@ -199,6 +205,7 @@ func resourceManufacturerRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("description", item["description"].(string))
 	d.Set("display", item["display"].(string))
 	d.Set("id", item["id"].(string))
+	d.Set("notes_url", item["notes_url"].(string))
 	d.Set("slug", item["slug"].(string))
 	d.Set("url", item["url"].(string))
 	d.Set("last_updated", item["last_updated"].(string))
