@@ -102,7 +102,7 @@ func resourceManufacturerCreate(ctx context.Context, d *schema.ResourceData, met
 	c := meta.(*apiClient).Client
 	s := meta.(*apiClient).Server
 
-	var m nb.Manufacturer
+	var m nb.ManufacturerRequest
 
 	name, ok := d.GetOk("name")
 	n := name.(string)
@@ -243,7 +243,7 @@ func resourceManufacturerUpdate(ctx context.Context, d *schema.ResourceData, met
 	name := d.Get("name").(string)
 	id := d.Get("id").(string)
 
-	var m nb.PatchedManufacturer
+	var m nb.PatchedManufacturerRequest
 
 	if d.HasChange("name") {
 		m.Name = &name

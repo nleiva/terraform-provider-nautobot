@@ -34,8 +34,8 @@ get-api:
 	cd client; wget https://demo.nautobot.com/api/swagger.yaml\?api_version\=1.3 -O swagger.yaml
 
 generate: get-api	
-	cd client; oapi-codegen -generate client -o nautobot.go -package nautobot test.swagger.yaml && \
-	oapi-codegen -generate types -o types.go -package nautobot test.swagger.yaml && \
+	cd client; oapi-codegen -generate client -o nautobot.go -package nautobot swagger.yaml && \
+	oapi-codegen -generate types -o types.go -package nautobot swagger.yaml && \
 	go mod tidy
 
 test: 

@@ -43,7 +43,7 @@ type Site struct {
 	ContactName  *string               `json:"contact_name,omitempty"`
 	ContactPhone *string               `json:"contact_phone,omitempty"`
 	Created      *types.Date           `json:"created,omitempty"`
-	CustomFields *nb.Site_CustomFields `json:"custom_fields,omitempty"`
+	CustomFields *nb.CustomFieldChoice `json:"custom_fields,omitempty"`
 	Description  *string               `json:"description,omitempty"`
 	DeviceCount  *int                  `json:"device_count,omitempty"`
 
