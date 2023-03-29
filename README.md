@@ -5,7 +5,7 @@ Nautobot provider created for educational purposes. You can fork it for long-ter
 ## Requirements
 
 -	[Terraform](https://www.terraform.io/downloads.html) >= 0.13.x
--	[Go](https://golang.org/doc/install) >= 1.19
+-	[Go](https://golang.org/doc/install) >= 1.20
 
 ## Building The Provider
 
@@ -40,7 +40,7 @@ The provide takes two arguments, `url` and `token`. For the data sources and res
 terraform {
   required_providers {
     nautobot = {
-      version = "0.3.2"
+      version = "0.3.3"
       source  = "nleiva/nautobot"
     }
   }
