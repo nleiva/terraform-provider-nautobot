@@ -12,7 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/tidwall/gjson"
 
-	nb "github.com/nautobot/go-nautobot"
+	nb "github.com/nautobot/go-nautobot/pkg/nautobot"
 )
 
 func resourceManufacturer() *schema.Resource {
