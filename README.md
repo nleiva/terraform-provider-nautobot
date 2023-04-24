@@ -1,6 +1,6 @@
 # Terraform Provider Nautobot 
 
-Nautobot provider created for educational purposes. You can fork it for long-term development :-)
+Nautobot provider created for educational purposes. This project will be archived. For further development, go to https://github.com/nautobot/terraform-provider-nautobot.
 
 ## Requirements
 
