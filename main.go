@@ -4,7 +4,7 @@ import (
 	"flag"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/nleiva/terraform-provider-nautobot/internal/provider"
+	"github.com/nautobot/terraform-provider-nautobot/internal/provider"
 )
 
 // Run "go generate" to format example terraform files and generate the docs for the registry/website
@@ -36,7 +36,7 @@ func main() {
 		Debug: debugMode,
 
 		// TODO: update this string with the full name of your provider as used in your configs
-		ProviderAddr: "registry.terraform.io/nleiva/nautobot",
+		ProviderAddr: "registry.terraform.io/nautobot/nautobot",
 
 		ProviderFunc: provider.New(version),
 	}

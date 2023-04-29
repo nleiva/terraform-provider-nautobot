@@ -1,4 +1,4 @@
-module github.com/nleiva/terraform-provider-nautobot
+module github.com/nautobot/terraform-provider-nautobot
 
 go 1.20
 
@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
 	github.com/hashicorp/terraform-plugin-log v0.8.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.26.1
-	github.com/nautobot/go-nautobot v0.0.0-00010101000000-000000000000
+	github.com/nautobot/go-nautobot v1.5.8-beta
 	github.com/tidwall/gjson v1.14.4
 )
 
@@ -74,5 +74,3 @@ require (
 	google.golang.org/grpc v1.54.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 )
-
-replace github.com/nautobot/go-nautobot => ./client
